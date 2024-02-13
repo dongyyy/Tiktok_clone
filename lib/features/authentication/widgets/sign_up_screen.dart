@@ -1,11 +1,21 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:tiktok_clone_dy/features/authentication/widgets/auth_button.dart';
+import 'package:tiktok_clone_dy/features/authentication/widgets/login_screen.dart';
 
-import '../../constants/gaps.dart';
-import '../../constants/sizes.dart';
+import '../../../constants/gaps.dart';
+import '../../../constants/sizes.dart';
 
 class SignUpScreen extends StatelessWidget {
   const SignUpScreen({super.key});
+  
+  void onLoginTap(BuildContext context){
+    Navigator.of(context).push(
+      MaterialPageRoute(
+        builder: (context) => LoginScreen(),
+      ),
+    );
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -23,11 +33,14 @@ class SignUpScreen extends StatelessWidget {
               children: [
                 Text("Already have an account?"),
                 Gaps.h5,
-                Text(
-                  "Log in",
-                  style: TextStyle(
-                      color: Theme.of(context).primaryColor,
-                      fontWeight: FontWeight.w600),
+                GestureDetector(
+                  onTap: () => onLoginTap(context),
+                  child: Text(
+                    "Log in",
+                    style: TextStyle(
+                        color: Theme.of(context).primaryColor,
+                        fontWeight: FontWeight.w600),
+                  ),
                 ),
               ],
             ),
@@ -56,6 +69,9 @@ class SignUpScreen extends StatelessWidget {
                 ),
                 textAlign: TextAlign.center,
               ),
+              Gaps.v40,
+              AuthButton(text: "Use phone or email"),
+              AuthButton(text: "Continue with Apple"),
             ],
           ),
         ),
