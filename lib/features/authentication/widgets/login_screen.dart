@@ -10,7 +10,7 @@ import 'sign_up_screen.dart';
 class LoginScreen extends StatelessWidget {
   const LoginScreen({super.key});
 
-  void onSignUpTap(BuildContext context){
+  void _onSignUpTap(BuildContext context){
     Navigator.of(context).pop(
       MaterialPageRoute(
         builder: (context) => SignUpScreen(),
@@ -36,7 +36,7 @@ class LoginScreen extends StatelessWidget {
                 Text("Don't have an account?"),
                 Gaps.h5,
                 GestureDetector(
-                  onTap: () => onSignUpTap(context),
+                  onTap: () => _onSignUpTap(context),
                   child: Text(
                     "Sign up",
                     style: TextStyle(

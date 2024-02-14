@@ -2,6 +2,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:tiktok_clone_dy/features/authentication/widgets/auth_button.dart';
+import 'package:tiktok_clone_dy/features/authentication/widgets/email_screen.dart';
 import 'package:tiktok_clone_dy/features/authentication/widgets/login_screen.dart';
 
 import '../../../constants/gaps.dart';
@@ -10,10 +11,18 @@ import '../../../constants/sizes.dart';
 class SignUpScreen extends StatelessWidget {
   const SignUpScreen({super.key});
   
-  void onLoginTap(BuildContext context){
+  void _onLoginTap(BuildContext context){
     Navigator.of(context).push(
       MaterialPageRoute(
-        builder: (context) => LoginScreen(),
+        builder: (context) => const LoginScreen(),
+      ),
+    );
+  }
+
+  void _onEmailTap(BuildContext context) {
+    Navigator.of(context).push(
+      MaterialPageRoute(
+        builder: (context) => const EmailScreen(),
       ),
     );
   }
@@ -35,7 +44,7 @@ class SignUpScreen extends StatelessWidget {
                 Text("Already have an account?"),
                 Gaps.h5,
                 GestureDetector(
-                  onTap: () => onLoginTap(context),
+                  onTap: () => _onLoginTap(context),
                   child: Text(
                     "Log in",
                     style: TextStyle(
@@ -71,9 +80,12 @@ class SignUpScreen extends StatelessWidget {
                 textAlign: TextAlign.center,
               ),
               Gaps.v40,
-              AuthButton(
-                icon: FaIcon(FontAwesomeIcons.user),
-                text: "Use phone or email",
+              GestureDetector(
+                onTap: () => _onEmailTap(context),
+                child: AuthButton(
+                  icon: FaIcon(FontAwesomeIcons.user),
+                  text: "Use phone or email",
+                ),
               ),
               Gaps.v16,
               AuthButton(
