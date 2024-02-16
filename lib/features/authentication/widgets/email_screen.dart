@@ -1,19 +1,18 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:tiktok_clone_dy/features/authentication/widgets/email_screen.dart';
 
 import '../../../constants/gaps.dart';
 import '../../../constants/sizes.dart';
 import 'form_button.dart';
 
-class UsernameScreen extends StatefulWidget {
-  const UsernameScreen({super.key});
+class EmailScreen extends StatefulWidget {
+  const EmailScreen({super.key});
 
   @override
-  State<UsernameScreen> createState() => _UsernameScreenState();
+  State<EmailScreen> createState() => _EmailScreenState();
 }
 
-class _UsernameScreenState extends State<UsernameScreen> {
+class _EmailScreenState extends State<EmailScreen> {
   final TextEditingController _usernameController = TextEditingController();
   String _username = "";
 
@@ -29,7 +28,6 @@ class _UsernameScreenState extends State<UsernameScreen> {
     });
   }
 
-
   @override
   void dispose() {
     _usernameController.dispose();
@@ -37,11 +35,8 @@ class _UsernameScreenState extends State<UsernameScreen> {
   }
 
   void _onNextTap() {
-    if (_username.isEmpty) return;
-
-    Navigator.of(context).push(
-      MaterialPageRoute(builder: (context) => const EmailScreen())
-    );
+    Navigator.of(context)
+        .push(MaterialPageRoute(builder: (context) => const EmailScreen()));
   }
 
   @override
@@ -62,25 +57,18 @@ class _UsernameScreenState extends State<UsernameScreen> {
           children: [
             Gaps.v40,
             const Text(
-              "Create username",
+              "What is your email?",
               style: TextStyle(
                 fontSize: Sizes.size20,
                 fontWeight: FontWeight.w600,
               ),
             ),
             Gaps.v8,
-            const Text(
-              "you can always change this later.",
-              style: TextStyle(
-                fontSize: Sizes.size16,
-                color: Colors.black54,
-              ),
-            ),
             Gaps.v16,
             TextField(
               controller: _usernameController,
               decoration: InputDecoration(
-                  hintText: "Username",
+                  hintText: "Email",
                   enabledBorder: UnderlineInputBorder(
                       borderSide: BorderSide(
                     color: Colors.grey.shade400,
@@ -95,7 +83,7 @@ class _UsernameScreenState extends State<UsernameScreen> {
             GestureDetector(
               onTap: _onNextTap,
               child: FormButton(disabled: _username.isEmpty),
-            ),
+            )
           ],
         ),
       ),
