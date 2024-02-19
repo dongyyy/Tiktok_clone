@@ -1,6 +1,4 @@
 import 'package:flutter/cupertino.dart';
-import 'package:flutter/material.dart';
-import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
 class MainNavigationScreen extends StatefulWidget {
   const MainNavigationScreen({super.key});
@@ -11,12 +9,18 @@ class MainNavigationScreen extends StatefulWidget {
 
 class _MainNavigationScreenState extends State<MainNavigationScreen> {
   var screens = [
-    Center(
-      child: Text("First"),
+    const Center(
+      child: Text(
+        'Home',
+        style: TextStyle(fontSize: 49),
+      ),
     ),
-    Center(
-      child: Text("Second"),
-    )
+    const Center(
+      child: Text(
+        'Search',
+        style: TextStyle(fontSize: 49),
+      ),
+    ),
   ];
 
   int _selectedIndex = 0;
@@ -29,29 +33,20 @@ class _MainNavigationScreenState extends State<MainNavigationScreen> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      body: screens[_selectedIndex],
-      bottomNavigationBar: BottomNavigationBar(
-        // 1. BottomNavigationBar 사용
-        type: BottomNavigationBarType.shifting,
-        currentIndex: _selectedIndex,
-        onTap: _onTap,
-        //selectedItemColor: Theme.of(context).primaryColor,
+    return CupertinoTabScaffold(
+      tabBar: CupertinoTabBar(
         items: const [
           BottomNavigationBarItem(
-            icon: FaIcon(FontAwesomeIcons.house),
+            icon: Icon(CupertinoIcons.house),
             label: "Home",
-            tooltip: "What are you?",
-            backgroundColor: Colors.amber,
           ),
           BottomNavigationBarItem(
-            icon: FaIcon(FontAwesomeIcons.magnifyingGlass),
+            icon: Icon(CupertinoIcons.search),
             label: "Search",
-            tooltip: "What are you?",
-            backgroundColor: Colors.blue,
-          )
+          ),
         ],
       ),
+      tabBuilder: (context, index) => screens[index],
     );
   }
 }
