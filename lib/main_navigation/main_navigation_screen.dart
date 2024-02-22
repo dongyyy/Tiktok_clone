@@ -2,7 +2,9 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:tiktok_clone_dy/main_navigation/stf_screen.dart';
+import 'package:tiktok_clone_dy/main_navigation/widgets/post_video_button.dart';
 
+import '../constants/gaps.dart';
 import '../constants/sizes.dart';
 import 'widgets/nav_tab.dart';
 
@@ -20,6 +22,17 @@ class _MainNavigationScreenState extends State<MainNavigationScreen> {
     setState(() {
       _selectedIndex = selectedIndex;
     });
+  }
+
+  void _onPostVideoButtonTap() {
+    Navigator.of(context).push(
+      MaterialPageRoute(
+        builder: (context) => Scaffold(
+          appBar: AppBar(title: const Text('Record video')),
+        ),
+        fullscreenDialog: true,
+      ),
+    );
   }
 
   @override
@@ -66,6 +79,12 @@ class _MainNavigationScreenState extends State<MainNavigationScreen> {
                 selectedIcon: FontAwesomeIcons.solidCompass,
                 onTap: () => _onTap(1),
               ),
+              Gaps.h24,
+              GestureDetector(
+                onTap: _onPostVideoButtonTap,
+                child: const PostVideoButton(),
+              ),
+              Gaps.h24,
               NavTab(
                 text: "Inbox",
                 isSelected: _selectedIndex == 3,
