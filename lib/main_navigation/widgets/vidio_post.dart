@@ -1,7 +1,4 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/src/widgets/container.dart';
-import 'package:flutter/src/widgets/framework.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:video_player/video_player.dart';
 import 'package:visibility_detector/visibility_detector.dart';
@@ -14,7 +11,8 @@ class VideoPost extends StatefulWidget {
 
   const VideoPost({
     super.key,
-    required this.onVideoFinished, required this.index,
+    required this.onVideoFinished,
+    required this.index,
   });
 
   @override
@@ -24,7 +22,7 @@ class VideoPost extends StatefulWidget {
 class _VideoPostState extends State<VideoPost>
     with SingleTickerProviderStateMixin {
   final VideoPlayerController _videoPlayerController =
-  VideoPlayerController.asset("assets/videos/video.mp4");
+      VideoPlayerController.asset("assets/videos/video.mp4");
 
   final Duration _animationDuration = const Duration(milliseconds: 200);
 
@@ -78,9 +76,6 @@ class _VideoPostState extends State<VideoPost>
       value: 1.5,
       duration: _animationDuration,
     );
-    _animationController.addListener(() {
-      setState(() {});
-    });
   }
 
   @override
@@ -100,8 +95,8 @@ class _VideoPostState extends State<VideoPost>
             child: _videoPlayerController.value.isInitialized
                 ? VideoPlayer(_videoPlayerController)
                 : Container(
-              color: Colors.black,
-            ),
+                    color: Colors.black,
+                  ),
           ),
           Positioned.fill(
             child: GestureDetector(
@@ -111,8 +106,14 @@ class _VideoPostState extends State<VideoPost>
           Positioned.fill(
             child: IgnorePointer(
               child: Center(
-                child: Transform.scale(
-                  scale: _animationController.value,
+                child: AnimatedBuilder(
+                  animation: _animationController,
+                  builder: (context, child) {
+                    return Transform.scale(
+                      scale: _animationController.value,
+                      child: child,
+                    );
+                  },
                   child: AnimatedOpacity(
                     opacity: _isPaused ? 1 : 0,
                     duration: _animationDuration,
