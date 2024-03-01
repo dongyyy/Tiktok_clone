@@ -3,7 +3,9 @@ import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:video_player/video_player.dart';
 import 'package:visibility_detector/visibility_detector.dart';
 
+import '../../constants/gaps.dart';
 import '../../constants/sizes.dart';
+import '../../features/videos/widgets/video_button.dart';
 
 class VideoPost extends StatefulWidget {
   final Function onVideoFinished;
@@ -21,8 +23,7 @@ class VideoPost extends StatefulWidget {
 
 class _VideoPostState extends State<VideoPost>
     with SingleTickerProviderStateMixin {
-  final VideoPlayerController _videoPlayerController =
-      VideoPlayerController.asset("assets/videos/video.mp4");
+  late final VideoPlayerController _videoPlayerController;
 
   final Duration _animationDuration = const Duration(milliseconds: 200);
 
@@ -40,7 +41,10 @@ class _VideoPostState extends State<VideoPost>
   }
 
   void _initVideoPlayer() async {
+    _videoPlayerController =
+        VideoPlayerController.asset("assets/videos/video.mp4");
     await _videoPlayerController.initialize();
+    await _videoPlayerController.setLooping(true);
     _videoPlayerController.addListener(_onVideoChange);
     setState(() {});
   }
@@ -90,7 +94,7 @@ class _VideoPostState extends State<VideoPost>
       key: Key("${widget.index}"),
       onVisibilityChanged: _onVisibilityChanged,
       child: Stack(
-        children: [
+        children: <Widget>[
           Positioned.fill(
             child: _videoPlayerController.value.isInitialized
                 ? VideoPlayer(_videoPlayerController)
@@ -126,7 +130,64 @@ class _VideoPostState extends State<VideoPost>
                 ),
               ),
             ),
-          )
+          ),
+          const Positioned(
+            bottom: 20,
+            left: 10,
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Text(
+                  "@니꼬",
+                  style: TextStyle(
+                    fontSize: Sizes.size20,
+                    color: Colors.white,
+                    fontWeight: FontWeight.bold,
+                  ),
+                ),
+                Gaps.v10,
+                Text(
+                  "This is my house in Thailand!!!",
+                  style: TextStyle(
+                    fontSize: Sizes.size16,
+                    color: Colors.white,
+                  ),
+                )
+              ],
+            ),
+          ),
+          const Positioned(
+            bottom: 20,
+            right: 10,
+            child: Column(
+              children: [
+                CircleAvatar(
+                  radius: 25,
+                  backgroundColor: Colors.black,
+                  foregroundColor: Colors.white,
+                  foregroundImage: NetworkImage(
+                    "https://avatars.githubusercontent.com/u/3612017",
+                  ),
+                  child: Text("니꼬"),
+                ),
+                Gaps.v24,
+                VideoButton(
+                  icon: FontAwesomeIcons.solidHeart,
+                  text: "2.9M",
+                ),
+                Gaps.v24,
+                VideoButton(
+                  icon: FontAwesomeIcons.solidComment,
+                  text: "33K",
+                ),
+                Gaps.v24,
+                VideoButton(
+                  icon: FontAwesomeIcons.share,
+                  text: "Share",
+                )
+              ],
+            ),
+          ),
         ],
       ),
     );
